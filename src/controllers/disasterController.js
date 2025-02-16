@@ -60,12 +60,77 @@ disasterController.get('/:disasterId/details', async (req, res) => {
     try {
         const disaster = await disasterService.getOne(disasterId);
         const isOwner = disaster.owner?.equals(req.user?.id);
-        const IsInterested = disaster.interestedList.includes(req.user?.id);
+        const isInterested = disaster.interestedList.includes(req.user?.id);
 
-        res.render('disasters/details', {disaster, isOwner, IsInterested});
+        res.render('disasters/details', {disaster, isOwner, isInterested});
     } catch (err) {
         res.redirect('404');
     }; 
+});
+
+disasterController.get('/:disasterId/interested', isAuth, async (req, res) => {
+    const disasterId = req.params.disasterId;
+    const userId = req.user.id;
+
+    try {
+        const disaster = await disasterService.interested(disasterId, userId);
+        res.redirect(`/disasters/${disasterId}/details`);
+    } catch (err) {
+        res.redirect('404');
+    };
+});
+
+disasterController.get('/:disasterId/edit', isAuth, async (req, res) => {
+    const disasterId = req.params.disasterId;
+    
+    try {
+        const disaster = await disasterService.getOne(disasterId);
+        if (!disaster.owner?.equals(req.user?.id)){
+            return res.redirect('404');
+        };
+        const disasterType = disasterTypesView(disaster.type)
+
+        res.render('disasters/edit', {disaster, disasterType})
+    } catch (err) {
+        res.redirect('404');
+    };    
+});
+
+disasterController.post('/:disasterId/edit', isAuth, async (req, res) => {
+    const disasterId = req.params.disasterId;
+    const disasterData = req.body;
+    const disaster = await disasterService.getOne(disasterId);
+    const disasterType = disasterTypesView(disaster.type) 
+    
+    if (!disaster.owner?.equals(req.user?.id)){
+        return res.redirect('404');
+    };
+    
+    try {
+        await disasterService.update(disasterData, disasterId);
+        res.redirect(`/disasters/${disasterId}/details`);
+
+    } catch (err) {
+        res.render('disasters/edit', {disaster: disasterData, error: getErrorMessage(err), disasterType})
+    };    
+});
+
+disasterController.get('/:disasterId/delete', isAuth, async (req, res) => {
+    const disasterId = req.params.disasterId;
+
+    try{
+        const disaster = await disasterService.getOne(disasterId);
+        
+        if (!disaster.owner?.equals(req.user?.id)){
+            return res.redirect('404')
+        };
+
+        await disasterService.remove(disasterId);
+        res.redirect('/disasters');
+
+    } catch (err){
+        return res.redirect('404');
+    };
 });
 
 
