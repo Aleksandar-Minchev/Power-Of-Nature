@@ -11,8 +11,8 @@ authController.get('/login', isGuest, (req, res) => {
 });
 
 authController.post('/login', isGuest, async (req, res) => {
+    
     const {email, password} = req.body;
-
     try{
         const token = await authService.login(email, password);
         res.cookie(AUTH_COOKIE, token, {httpOnly: true});
@@ -20,7 +20,7 @@ authController.post('/login', isGuest, async (req, res) => {
     } catch(err){
         return res.render('auth/login', { 
             error: getErrorMessage(err), 
-            user: { email }
+            username: { email }
         });        
     }
 });
@@ -31,6 +31,7 @@ authController.get('/register', isGuest, (req, res) => {
 
 authController.post('/register', isGuest, async (req, res) => {
     const userData = req.body;
+
     try{
         const token = await authService.register(userData);
         res.cookie(AUTH_COOKIE, token);
@@ -38,7 +39,7 @@ authController.post('/register', isGuest, async (req, res) => {
     } catch (err){
         return res.render('auth/register', {
             error: getErrorMessage(err), 
-            user: userData            
+            username: userData            
         }); 
     }   
 });

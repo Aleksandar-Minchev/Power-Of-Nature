@@ -4,20 +4,20 @@ import { generateToken } from "../utils/generateToken.js";
 
 
 export default {
-    async login (email, password){
+    async login (email, password){        
         const user = await User.findOne({email});
+        
         if (!user){
-            throw new Error('Invalid email or password!')
-        }
-
+           throw new Error('Invalid email or password!')
+         }            
         const isValidPass = await bcrypt.compare(password, user.password);
+        
         if (!isValidPass){
-            throw new Error('Invalid email or password!');
-        }
-
+           throw new Error('Invalid email or password!');
+        }      
         const token = generateToken(user);
 
-        return token;        
+        return token;               
     },
 
     async register(userData){
@@ -34,6 +34,6 @@ export default {
         const newUser =  await User.create(userData);
         const token = generateToken(newUser);
 
-        return token;
+        return token;       
     }    
 }
