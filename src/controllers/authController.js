@@ -22,7 +22,7 @@ authController.post('/login', isGuest, async (req, res) => {
             error: getErrorMessage(err), 
             username: { email }
         });        
-    }
+    };
 });
 
 authController.get('/register', isGuest, (req, res) => {
@@ -41,7 +41,7 @@ authController.post('/register', isGuest, async (req, res) => {
             error: getErrorMessage(err), 
             username: userData            
         }); 
-    }   
+    };   
 });
 
 authController.get('/logout', isAuth, (req, res) => {

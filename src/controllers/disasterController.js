@@ -14,7 +14,7 @@ disasterController.get('/', async (req, res) => {
         res.render('/', {
             error: getErrorMessage(err)
         }); 
-    }
+    };
 });
 
 disasterController.get('/search', async (req, res) => {
@@ -28,11 +28,11 @@ disasterController.get('/search', async (req, res) => {
         res.render('disasters/search', {
             error: getErrorMessage(err)
         });
-    }
+    };
 });
 
 disasterController.get('/create', isAuth, (req, res) => {
-    const disasterTypes = disasterTypesView()
+    const disasterTypes = disasterTypesView();
 
     res.render('disasters/create', {disasterTypes});
 });
@@ -51,8 +51,8 @@ disasterController.post('/create', isAuth, async (req, res) => {
             error: getErrorMessage(err),
             disasters: disasterData,
             disasterTypes
-        })
-    }
+        });
+    };
 });
 
 disasterController.get('/:disasterId/details', async (req, res) => {
@@ -88,7 +88,7 @@ disasterController.get('/:disasterId/edit', isAuth, async (req, res) => {
         if (!disaster.owner?.equals(req.user?.id)){
             return res.redirect('404');
         };
-        const disasterType = disasterTypesView(disaster.type)
+        const disasterType = disasterTypesView(disaster.type);
 
         res.render('disasters/edit', {disaster, disasterType})
     } catch (err) {
@@ -111,7 +111,7 @@ disasterController.post('/:disasterId/edit', isAuth, async (req, res) => {
         res.redirect(`/disasters/${disasterId}/details`);
 
     } catch (err) {
-        res.render('disasters/edit', {disaster: disasterData, error: getErrorMessage(err), disasterType})
+        res.render('disasters/edit', {disaster: disasterData, error: getErrorMessage(err), disasterType});
     };    
 });
 
@@ -122,7 +122,7 @@ disasterController.get('/:disasterId/delete', isAuth, async (req, res) => {
         const disaster = await disasterService.getOne(disasterId);
         
         if (!disaster.owner?.equals(req.user?.id)){
-            return res.redirect('404')
+            return res.redirect('404');
         };
 
         await disasterService.remove(disasterId);

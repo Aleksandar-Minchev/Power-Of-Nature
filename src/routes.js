@@ -10,7 +10,7 @@ routes.use('/auth', authController);
 routes.use('/disasters', disasterController);
 
 
-routes.get('*', (req, res) => {
+routes.all('*', (req, res) => {
     res.render('404');
 });
 

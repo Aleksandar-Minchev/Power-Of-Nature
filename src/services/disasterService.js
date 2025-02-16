@@ -9,20 +9,20 @@ export default {
 
         return result;
     },
-    
+
     async getAll(filter = {}){
         let disasters = await Disaster.find({});
 
         if (filter.name){
             disasters = disasters.filter(disaster => 
                 disaster.name.toLowerCase().includes(filter.name.toLowerCase())
-            )
+            );
         };
 
         if (filter.type){
             disasters = disasters.filter(disaster =>
                 disaster.type == filter.type
-            )
+            );
         };        
     
         return disasters;
@@ -37,11 +37,11 @@ export default {
         const disaster = await Disaster.findById(disasterId);
 
         if (disaster.owner?.equals(userId)){
-            throw new Error ("You can't vote for your own volcanoes")
-        }
+            throw new Error ("You can't be interested in your own disasters!");
+        };
          if (disaster.interestedList.includes(userId)){
-            throw new Error ("You've already voted for this volcano")
-        }
+            throw new Error ("You've already been interested in this disaster!");
+        };
 
         disaster.interestedList.push(userId);
 
