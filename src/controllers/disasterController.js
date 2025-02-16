@@ -17,6 +17,20 @@ disasterController.get('/', async (req, res) => {
     }
 });
 
+disasterController.get('/search', async (req, res) => {
+    const filter = req.query;
+
+    try {
+        const disasters = await disasterService.getAll(filter);
+        res.render('disasters/search', {disasters, filter, disasterTypes: disasterTypesView(filter.type)});   
+        
+    } catch (err) {
+        res.render('disasters/search', {
+            error: getErrorMessage(err)
+        });
+    }
+});
+
 disasterController.get('/create', isAuth, (req, res) => {
     const disasterTypes = disasterTypesView()
 
@@ -39,6 +53,19 @@ disasterController.post('/create', isAuth, async (req, res) => {
             disasterTypes
         })
     }
+});
+
+disasterController.get('/:disasterId/details', async (req, res) => {
+    const disasterId = req.params.disasterId;
+    try {
+        const disaster = await disasterService.getOne(disasterId);
+        const isOwner = disaster.owner?.equals(req.user?.id);
+        const IsInterested = disaster.interestedList.includes(req.user?.id);
+
+        res.render('disasters/details', {disaster, isOwner, IsInterested});
+    } catch (err) {
+        res.redirect('404');
+    }; 
 });
 
 

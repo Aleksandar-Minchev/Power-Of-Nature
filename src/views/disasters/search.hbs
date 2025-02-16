@@ -3,39 +3,26 @@
             <h1 id="title">Search</h1>
 
             <form class="search-form" method="">
-                <input type="text" class="search-event" name="name" placeholder="Search by Name...">
-                <select id="type" name="">
-                    <option value="Wildfire">Wildfire</option>
-                    <option value="Flood">Flood</option>
-                    <option value="Earthquake">Earthquake</option>
-                    <option value="Hurricane">Hurricane</option>
-                    <option value="Drought">Drought</option>
-                    <option value="Tsunami">Tsunami</option>
-                    <option value="Other">Other</option>
+                <input type="text" class="search-event" name="name" value="{{filter.name}}" placeholder="Search by Name...">
+                <select id="type" name="type">
+                    {{#each disasterTypes}}
+                        <option value="{{value}}" {{selected}}>{{label}}</option>
+                    {{/each}}
                 </select>
                 <button type="submit" class="btn-search">Search</button>
             </form>
 
             <div class="search-result">
+            {{#if disasters}}
                 <div class="search-list">
-                    <div class="event">
-                        <div class="img">
-                            <img
-                                src="https://static.scientificamerican.com/sciam/cache/file/2AE37833-55E8-4973-85CFC20E82A23A45_source.jpg">
-                        </div>
-                        <div class="event-info">
-                            <h1>Haiti Earthquake</h1>
-                            <p><span>Location: </span>Haiti</p>
-                            <p><span>Type: </span>Earthquake</p>
-                        </div>
-
-                        <a href="#" class="btn-details">Details</a>
-                    </div>
+                    {{#each disasters}}
+                    {{>disaster}}
+                    {{/each}}
                 </div>
-
-            </div>
-
-            <!-- <div class="no-match">
-                <p>No match was found!</p>
-            </div> -->
-        </section>
+            {{else}}
+                    <div class="no-match">
+                    <p>No match was found!</p>
+                    </div>
+            {{/if}}
+            </div>            
+</section>

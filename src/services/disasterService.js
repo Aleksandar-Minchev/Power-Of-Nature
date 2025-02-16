@@ -25,6 +25,12 @@ export default {
         };        
     
         return disasters;
-    }
+    },
+
+    getOne (disasterId) {
+        const disaster = Disaster.findById(disasterId);
+        return disaster;
+    },
+    
 
 }
