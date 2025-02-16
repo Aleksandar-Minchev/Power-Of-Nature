@@ -9,7 +9,7 @@ import { authMiddleware } from './middlewares/authMiddleware.js';
 const app = express();
 
 try{
-    const uri = 'mongodb://localhost:27017/home-cooking-recipes';
+    const uri = 'mongodb://localhost:27017/power-of-nature';
     await mongoose.connect(uri);
     console.log('DB connected successfully'); 
 } catch (err){

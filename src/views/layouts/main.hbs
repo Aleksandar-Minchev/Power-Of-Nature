@@ -3,20 +3,21 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{#if pageTitle}}{{pageTitle}}{{else}}Home Cooking Recipes{{/if}}</title>
-    <link rel="stylesheet" href="/styles/styles.css">
+    <title>{{#if pageTitle}}{{pageTitle}}{{else}}Power Of Nature{{/if}}</title>
+    <link rel="stylesheet" href="./static/css/styles.css" />
 </head>
 
-<body>
-    <header>
+<body>        
+    <header class="header">
         <nav>
             <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="/recipes">Recipes</a></li>
-                <li><a href="#">Search</a></li>
+                <li><a href="/disasters/search">Search</a></li>
+                <li><a href="/disasters">Power of Nature</a></li>
                 {{#if user}}
-                <li><a href="/recipes/create">Add Recipe</a></li>                
+                <li><a href="/disasters/create">Create Event</a></li>
                 <li><a href="/auth/logout">Logout</a></li>
                 {{else}}
                 <li><a href="/auth/login">Login</a></li>
@@ -25,16 +26,22 @@
             </ul>
         </nav>
     </header>
+
     <main>
         {{#if error}}
-        <div class="error-container">
-            <p>{{error}}</p>
+        <div>
+            <div class="errorContainer">
+                <p>{{error}}</p>
+            </div>
         </div>
-        {{/if}}  
-        {{{body}}} 
+        {{/if}}
+
+        {{{body}}}
+
     </main>
+
     <footer>
-        <p>&copy; 2024 Home Cooking Recipes. All rights reserved.</p>
+        <p>&copy JS Back-End 2025</p>
     </footer>
 </body>
 

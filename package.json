@@ -1,7 +1,7 @@
 {
-  "name": "cooking-recipes",
+  "name": "power-of-nature",
   "version": "1.0.0",
-  "description": "JS Back-End Course Exam Preparation",
+  "description": "JS Back-End Regular Exam",
   "main": "index.js",
   "type": "module",
   "scripts": {
