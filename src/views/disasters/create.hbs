@@ -1,0 +1,25 @@
+{{setPageTitle "Power Of Nature | Create Page"}}
+<section id="create-container">
+            <div class="create-container-info">
+                <h1>Create Event</h1>
+                <form method="POST">
+                    <label>Name of the Disaster:</label>
+                    <input type="text" id="name" name="name" value="{{disaster.name}}" placeholder="...">
+                    <label>Type of Disaster:</label>
+                    <select id="type" name="type">
+                        {{#each disasterTypes}}
+                            <option value="{{value}}" {{selected}}>{{label}}</option>
+                        {{/each}}
+                    </select>
+                    <label>Year of the Event:</label>
+                    <input type="number" id="year" name="year" value="{{disaster.year}}" placeholder="...">
+                    <label>Location:</label>
+                    <input type="text" id="location" name="location" value="{{disaster.location}}" placeholder="...">
+                    <label>Image:</label>
+                    <input type="text" id="image" name="image" value="{{disaster.image}}" placeholder="http://...">
+                    <label>Description:</label>
+                    <textarea id="description" name="description" value="{{disaster.description}}" placeholder="..."></textarea>
+                    <input type="submit" id="btn" value="Submit"></input>
+                </form>
+            </div>
+</section>
