@@ -6,8 +6,15 @@ import { getErrorMessage } from "../utils/errorUtils.js";
 
 const disasterController = Router();
 
-disasterController.get('/', (req, res) => {
-    res.render('disasters/catalog');
+disasterController.get('/', async (req, res) => {
+    try {
+        const disasters = await disasterService.getAll();
+        res.render('disasters/catalog', { disasters });   
+    } catch (err) {
+        res.render('/', {
+            error: getErrorMessage(err)
+        }); 
+    }
 });
 
 disasterController.get('/create', isAuth, (req, res) => {
